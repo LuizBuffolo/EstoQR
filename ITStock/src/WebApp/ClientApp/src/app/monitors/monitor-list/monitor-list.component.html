@@ -1,0 +1,27 @@
+<table class="table table-hover" *ngIf="monitors && tableHeader; else notMonitors">
+  <thead>
+    <tr>
+      <th *ngFor="let head of tableHeader" scope="col">{{head}}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let m of monitors">
+      <td>{{m.manufacturer}}</td>
+      <td>{{m.size}}</td>
+      <td>{{m.user}}</td>
+      <td>
+        <div class="row">
+          <div class="col-md-6">
+            <i class="fas fa-info-circle" (click)="onInfo(m.id)"></i>
+          </div>
+          <div class="col-md-6">
+            <i class="far fa-trash-alt fa-lg text-danger" (click)="onDelete(m.id)"></i>
+          </div>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<ng-template #notMonitors>
+  <h4>Nenhum monitor cadastrado.</h4>
+</ng-template>

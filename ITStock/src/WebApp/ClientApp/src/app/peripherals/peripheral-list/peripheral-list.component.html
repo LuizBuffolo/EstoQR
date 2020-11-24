@@ -1,0 +1,22 @@
+<div>
+  <table class="table table-hover" *ngIf="machines && tableHeader; else notMachines">
+      <thead>
+        <tr>
+          <th *ngFor="let head of tableHeader" scope="col">{{head}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let m of machines">
+          <td>{{m.hostname}}</td>
+          <td>{{m.model}}</td>
+          <td>{{m.manufacturer}}</td>
+          <td>
+            <i class="far fa-trash-alt fa-lg text-danger" (click)="onDelete(m.id)"></i>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+</div>
+<ng-template #notMachines>
+  <h4>Nenhuma maquina cadastrada.</h4>
+</ng-template>

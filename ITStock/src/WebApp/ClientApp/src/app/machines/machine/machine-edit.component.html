@@ -1,0 +1,120 @@
+<form #form="ngForm" name="FormMachine" autocomplete="off" (submit)="onSubmit(form)">
+  <div class="form-group">
+    <div class="form-group">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <div class="input-group-text bg-white">
+            <i class="far fa-id-card"></i>
+          </div>
+        </div>
+        <input name="hostname" #Hostname="ngModel" [(ngModel)]="machine.hostname" class="form-control" placeholder="SAOM/SAOW" required maxlength="8" minlength="8" disabled />
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="form-group">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <div class="input-group-text bg-white">
+            <i class="fas fa-laptop"></i>
+          </div>
+        </div>
+        <input name="model" #Model="ngModel" [(ngModel)]="machine.model" class="form-control" placeholder="Modelo da Maquina" />
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text bg-white">
+              <i class="fas fa-industry"></i>
+            </div>
+          </div>
+          <input name="manufacturer" #Manufacturer="ngModel" [(ngModel)]="machine.manufacturer" class="form-control" placeholder="Manufacturer" />
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text bg-white">
+              <i class="fas fa-microchip"></i>
+            </div>
+          </div>
+          <input name="processor" #Processor="ngModel" [(ngModel)]="machine.processor" class="form-control" placeholder="Processador" />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text bg-white">
+              <i class="fas fa-memory"></i>
+            </div>
+          </div>
+          <input name="ram" #Ram="ngModel" [(ngModel)]="machine.ram" class="form-control" placeholder="Mem. Ram" />
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text bg-white">
+              <i class="far fa-id-card"></i>
+            </div>
+          </div>
+          <input name="cFit" #CFit="ngModel" [(ngModel)]="machine.cFit" class="form-control" placeholder="CFit" />
+        </div>
+      </div>
+    </div>
+  </div>
+  <input (change)="FieldsChange($event)" value="angular" type="checkbox" /> Estoque TI
+  <div class="form-group">
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <div class="input-group-text bg-white">
+          <i class="fas fa-user"></i>
+        </div>
+      </div>
+      <input name="User" #User="ngModel" [(ngModel)]="machine.user" class="form-control" placeholder="Usuário da Máquina" *ngIf="this.check === false" />
+      <input name="User" #User="ngModel" [(ngModel)]="machine.User" disabled class="form-control" placeholder="Estoque TI" *ngIf="this.check === true" />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-7">
+      <div class="form-group">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text bg-white">
+              <i class="fas fa-barcode"></i>
+            </div>
+          </div>
+          <input name="workday" #Workday="ngModel" [(ngModel)]="machine.workday" class="form-control" placeholder="Workday" />
+        </div>
+      </div>
+    </div>
+    <div class="col-md-5">
+      <div class="form-group">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text bg-white">
+              <i class="fas fa-minus-square"></i>
+            </div>
+          </div>
+          <input name="Sector" #Sector="ngModel" [(ngModel)]="machine.sector" class="form-control" placeholder="Setor" *ngIf="this.check === false" />
+          <input name="Sector" #Sector="ngModel" [(ngModel)]="machine.Sector" disabled class="form-control" placeholder="TI" *ngIf="this.check === true" />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <button class="btn btn-success btn-lg btn-block" type="submit" [disabled]="form.invalid"><i class="fas fa-save"></i> Salvar</button>
+  </div>
+</form>
