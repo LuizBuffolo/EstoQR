@@ -18,6 +18,8 @@ import { MonitorlistComponent } from './monitors/monitor-list/monitor-list.compo
 import { AppRoutingModule } from './app.routing.module';
 import { MachineEditComponent } from './machines/machine/machine-edit.component';
 import { MonitorEditComponent } from './monitors/monitor/monitor-edit.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import { MonitorEditComponent } from './monitors/monitor/monitor-edit.component'
     MonitorlistComponent,
     MachineEditComponent,
     MonitorEditComponent,
-    NavbarComponent
+    NavbarComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
