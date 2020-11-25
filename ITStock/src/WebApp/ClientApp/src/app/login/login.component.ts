@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user-shared/user.service';
 import { User } from '../user-shared/user.model';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,8 @@ export class LoginComponent implements OnInit {
   }
 
   constructor(
-    private service: UserService
+    private service: UserService,
+    private route: Router
   ) { }
 
   ngOnInit() {
@@ -44,7 +46,8 @@ export class LoginComponent implements OnInit {
     for (let i = 0; i < this.users.length; i++) {
       if (this.users[i].Username == this.user.Username) {
         if (this.users[i].Password == this.user.Password) {
-          console.log(this.users[i].Id);
+          //console.log(this.users[i].Id);
+          this.route.navigate(['/dashboard/' + this.users[i].Id])
         }
       }
     }

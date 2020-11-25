@@ -7,6 +7,7 @@ import { MachineEditComponent } from "./machines/machine/machine-edit.component"
 import { MonitorEditComponent } from "./monitors/monitor/monitor-edit.component";
 import { LoginComponent } from "./login/login.component";
 import { RegisterComponent } from "./register/register.component";
+import { DashboardComponent } from "./dashboard/dashboard.component";
 
 const routes: Routes = [
   { path: "home", component: HomeComponent },
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: "monitors", component: MonitorsComponent },
   { path: "machine/:id", component: MachineEditComponent },
   { path: "monitor/:id", component: MonitorEditComponent },
+  { path: "dashboard/:id", component: DashboardComponent },
   { path: "login", component: LoginComponent },
   { path: "register", component: RegisterComponent }
 ];

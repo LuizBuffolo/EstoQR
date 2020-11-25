@@ -39,8 +39,8 @@ namespace WebApp.Controllers
 
             if (machines != null)
             {
-                machines.Sort((x, y) => x.Hostname.CompareTo(y.Hostname));
-                return Ok(machines);
+                machines.Sort((x, y) => x.Processor.CompareTo(y.Processor));
+                return Ok(Newtonsoft.Json.JsonConvert.SerializeObject(machines));
             }
 
             return NotFound();
