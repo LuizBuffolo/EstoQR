@@ -8,6 +8,7 @@ import { MonitorEditComponent } from "./monitors/monitor/monitor-edit.component"
 import { LoginComponent } from "./login/login.component";
 import { RegisterComponent } from "./register/register.component";
 import { DashboardComponent } from "./dashboard/dashboard.component";
+import { RegisterMachineComponent } from "./register-machine/register-machine.component";
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -18,7 +19,8 @@ const routes: Routes = [
   { path: "monitor/:id", component: MonitorEditComponent },
   { path: "dashboard/:id", component: DashboardComponent },
   { path: "login", component: LoginComponent },
-  { path: "register", component: RegisterComponent }
+  { path: "register", component: RegisterComponent },
+  { path: "register-machine", component: RegisterMachineComponent }
 ];
 
 @NgModule({
