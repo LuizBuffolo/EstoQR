@@ -10,6 +10,7 @@ import { RegisterComponent } from "./register/register.component";
 import { DashboardComponent } from "./dashboard/dashboard.component";
 
 const routes: Routes = [
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: "home", component: HomeComponent },
   { path: "machines", component: MachinesComponent },
   { path: "monitors", component: MonitorsComponent },

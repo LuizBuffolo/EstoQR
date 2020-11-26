@@ -53,16 +53,17 @@ export class DashboardComponent implements OnInit {
     this.qrBase = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=";
     this.qrCode = this.qrBase.concat(this.userId.toString());
     this.qrCode = this.qrCode.concat(".svg");
-    console.log(this.qrCode);
+    // console.log(this.qrCode);
+
     this.refreshMachines();
-    console.log(this.machines);
+    // console.log(this.machines);
   }
 
   getById(userId) {
     this.service.getById(userId).subscribe(
       res => {
         this.user = res as User;
-        console.log(this.user);
+        // console.log(this.user);
       },
       err => { console.log(err) }
     );
@@ -72,7 +73,7 @@ export class DashboardComponent implements OnInit {
     this.serviceMachine.refreshList().subscribe(
       res => {
         this.machines = res as Machine[];
-        console.log(this.machines);
+        // console.log(this.machines);
       },
       err => {
         if (err.status == 404) {
