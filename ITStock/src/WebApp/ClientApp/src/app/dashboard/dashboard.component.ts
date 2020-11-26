@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../user-shared/user.model';
+import { Request } from '../request-shared/request.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../user-shared/user.service';
 import { Machine } from '../machines/machine-shared/machine.model';
 import { MachineService } from '../machines/machine-shared/machine.service';
+import { NgForm } from '@angular/forms';
+import { RequestService } from '../request-shared/request.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -24,15 +27,22 @@ export class DashboardComponent implements OnInit {
     Hierarchy: ''
   }
 
+  request: Request = {
+    Id: '',
+    User: '',
+    Model: '',
+    Status: ''
+  }
+
   tableHeader: string[] = new Array(
-    "Hostname",
     "Modelo",
     "Fabricante",
     "Usuário",
-    "Setor"
+    "Processor",
+    "Ram"
   );
 
-  constructor(private route: ActivatedRoute, private service: UserService, private serviceMachine: MachineService, private nav: Router) {
+  constructor(private route: ActivatedRoute, private service: UserService, private serviceRequest: RequestService, private serviceMachine: MachineService, private nav: Router) {
     this.route.params.subscribe(params => this.userId = params['id']);
   }
 
@@ -44,8 +54,8 @@ export class DashboardComponent implements OnInit {
     this.qrCode = this.qrBase.concat(this.userId.toString());
     this.qrCode = this.qrCode.concat(".svg");
     console.log(this.qrCode);
-
     this.refreshMachines();
+    console.log(this.machines);
   }
 
   getById(userId) {
@@ -59,16 +69,37 @@ export class DashboardComponent implements OnInit {
   }
 
   refreshMachines() {
-    this.service.refreshList().subscribe(
-      (data) => {
-        this.serviceMachine.changeMachines(data as Machine[]);
+    this.serviceMachine.refreshList().subscribe(
+      res => {
+        this.machines = res as Machine[];
         console.log(this.machines);
       },
       err => {
         if (err.status == 404) {
-          this.serviceMachine.changeMachines(null);
+          console.log('404');
         }
       });
   }
 
+  resetForm(form?: NgForm) {
+    if (form != null)
+      form.resetForm();
+  }
+
+  onSubmit(form?: NgForm, username?: string) {
+    this.request.User = username;
+    this.request.Status = "Em Análise";
+
+    var f = form
+    this.serviceRequest.postRequest(this.request).subscribe(
+      res => {
+        this.resetForm(f);
+        this.service.refreshList().subscribe(
+          (data) => {
+            this.serviceRequest.changeRequests(data as Request[]);
+          });
+      },
+      err => { console.log(err) }
+    )
+  }
 }

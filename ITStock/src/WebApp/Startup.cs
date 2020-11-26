@@ -33,11 +33,13 @@ namespace WebApp
 
             services.AddScoped<IMonitorService, MonitorService>()
                 .AddScoped<IMachineService, MachineService>()
-                .AddScoped<IUserService, UserService>();
+                .AddScoped<IUserService, UserService>()
+                .AddScoped<IRequestService, RequestService>();
 
             services.AddSingleton<IMachineRepository, MachineRepository>()
                 .AddSingleton<IMonitorRepository, MonitorRepository>()
-                .AddSingleton<IUserRepository, UserRepository>();
+                .AddSingleton<IUserRepository, UserRepository>()
+                .AddSingleton<IRequestRepository, RequestRepository>();
 
         }
 

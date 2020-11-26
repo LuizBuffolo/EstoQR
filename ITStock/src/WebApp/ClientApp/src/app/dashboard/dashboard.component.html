@@ -1,58 +1,62 @@
-<div className="dashboard">
-  <div classname="container">
-
-    <div class="row">
-      <div class="col-md-5">
-        <figure class="center-image">
-          <img alt="pfp" width="100" height="100" src="{{qrCode}}" />
-        </figure>
-      </div>
-      <div class="col-md-7">
-        <h3>Olá, {{ user.username }}!</h3>
-      </div>
-    </div>
-    <hr />
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6">
-          <div>
-            <table class="table table-hover" *ngIf="machines && tableHeader; else notMachines">
-              <thead>
-                <tr>
-                  <th *ngFor="let head of tableHeader" scope="col">{{head}}</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let m of machines">
-                  <td>{{m.hostname}}</td>
-                  <td>{{m.model}}</td>
-                  <td>{{m.manufacturer}}</td>
-                  <td>{{m.user}}</td>
-                  <td>{{m.sector}}</td>
-                  <td>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <i class="fas fa-info-circle" (click)="onInfo(m.id)"></i>
-                      </div>
-                      <div class="col-md-6">
-                        <i class="far fa-trash-alt fa-lg text-danger" (click)="onDelete(m.id)"></i>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <ng-template #notMachines>
-            <h4>Nenhuma máquina cadastrada.</h4>
-          </ng-template>
-
-        </div>
-        <div class="col-md-6">
-          
-        </div>
-      </div>
-    </div>
-
+<div class="row">
+  <div class="col-md-5">
+    <figure class="center-image">
+      <img alt="pfp" width="100" height="100" src="{{qrCode}}" />
+    </figure>
+  </div>
+  <div class="col-md-7">
+    <h3>Olá, {{ user.username }}!</h3>
   </div>
 </div>
+<hr />
+      
+<div class="row">
+  <div class="col-md-6">
+    <div>
+      <table class="table table-hover" *ngIf="machines && tableHeader; else notMachines">
+        <thead>
+          <tr>
+            <th *ngFor="let head of tableHeader" scope="col">{{head}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let m of machines">
+            <td *ngIf="m.user === user.username">{{m.model}}</td>
+            <td *ngIf="m.user === user.username">{{m.manufacturer}}</td>
+            <td *ngIf="m.user === user.username">{{m.user}}</td>
+            <td *ngIf="m.user === user.username">{{m.processor}}</td>
+            <td *ngIf="m.user === user.username">{{m.ram}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <ng-template #notMachines>
+      <h4>Nenhuma máquina cadastrada.</h4>
+    </ng-template>
+
+  </div>
+  <div class="col-md-6">
+    <form #form="ngForm" name="FormRequest" autocomplete="off" (submit)="onSubmit(form, user.username)">
+      <div class="form-group">
+        <div class="form-group">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <div class="input-group-text bg-white">
+                <i class="far fa-id-card"></i>
+              </div>
+            </div>
+            <input name="Model" #Model="ngModel" [(ngModel)]="request.Model" class="form-control" placeholder="Digite o modelo desejado"/>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <button class="btn btn-success btn-lg btn-block" type="submit" [disabled]="form.invalid"><i class="fas fa-save"></i> Solicitar</button>
+      </div>
+    </form>
+  </div>
+</div>
+ 
+
+
+

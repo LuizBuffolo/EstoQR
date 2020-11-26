@@ -6,12 +6,12 @@ namespace WebApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MachineController : ControllerBase
+    public class RequestController : ControllerBase
     {
-        private IMachineService machineService;
-        public MachineController(IMachineService machineService)
+        private IRequestService requestService;
+        public RequestController(IRequestService requestService)
         {
-            this.machineService = machineService;
+            this.requestService = requestService;
         }
 
         [HttpGet("{id}")]
@@ -22,46 +22,46 @@ namespace WebApp.Controllers
                 return BadRequest();
             }
 
-            var machine = machineService.Get(id);
+            var request = requestService.Get(id);
 
-            if (machine.Equals(null))
+            if (request.Equals(null))
             {
                 return NotFound();
             }
 
-            return Ok(machine);
+            return Ok(request);
         }
 
         [HttpGet]
         public IActionResult GetAll()
         {
-            var machines = machineService.GetAll();
+            var requests = requestService.GetAll();
 
-            if (machines != null)
+            if (requests != null)
             {
-                machines.Sort((x, y) => x.Processor.CompareTo(y.Processor));
-                return Ok(machines);
+                requests.Sort((x, y) => x.User.CompareTo(y.User));
+                return Ok(Newtonsoft.Json.JsonConvert.SerializeObject(requests));
             }
 
             return NotFound();
         }
 
         [HttpPost]
-        public IActionResult Save([FromBody]MachineModel element)
+        public IActionResult Save([FromBody] RequestModel element)
         {
             if (element.Equals(null))
             {
                 return BadRequest();
             }
 
-            var machine = machineService.Save(element);
+            var request = requestService.Save(element);
 
-            if (machine.Equals(null))
+            if (request.Equals(null))
             {
                 return NotFound();
             }
 
-            return Ok(Newtonsoft.Json.JsonConvert.SerializeObject(machine));
+            return Ok(Newtonsoft.Json.JsonConvert.SerializeObject(request));
         }
 
         [HttpDelete("{id}")]
@@ -72,9 +72,9 @@ namespace WebApp.Controllers
                 return BadRequest();
             }
 
-            bool machine = machineService.Delete(id);
+            bool request = requestService.Delete(id);
 
-            if (machine == false)
+            if (request == false)
             {
                 return NotFound();
             }
