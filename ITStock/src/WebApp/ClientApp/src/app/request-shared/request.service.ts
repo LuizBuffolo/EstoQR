@@ -16,9 +16,8 @@ export class RequestService {
     this.requests.next(requests);
   }
 
-  private readonly rootURL: string = "https://localhost:44316/api/Request";
+  private readonly rootURL: string = "https://localhost:44316/api/request";
 
-  list: Request[];
   constructor(private http: HttpClient) { }
 
 

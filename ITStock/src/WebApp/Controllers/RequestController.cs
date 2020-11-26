@@ -39,8 +39,8 @@ namespace WebApp.Controllers
 
             if (requests != null)
             {
-                requests.Sort((x, y) => x.User.CompareTo(y.User));
-                return Ok(Newtonsoft.Json.JsonConvert.SerializeObject(requests));
+                // requests.Sort((x, y) => x.User.CompareTo(y.User));
+                return Ok(requests);
             }
 
             return NotFound();

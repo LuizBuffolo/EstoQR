@@ -15,16 +15,12 @@ export class MachineEditComponent implements OnInit {
   check: boolean = false;
   machine: Machine = {
     Id: '',
-    Hostname: '',
     Model: '',
     Manufacturer: '',
     Processor: '',
-    CFit: '',
     Ram: '',
-    Sector: '',
     User: '',
-    Workday: '',
-    Avaiable: true
+    Available: true
   }
 
   constructor(private route: ActivatedRoute, private service: MachineService, private nav: Router) {
@@ -64,14 +60,14 @@ export class MachineEditComponent implements OnInit {
     if (values.currentTarget.checked == true) {
       this.check = true;
       this.machine.User = 'Estoque TI';
-      this.machine.Sector = 'TI';
+      // this.machine.Sector = 'TI';
       console.log(this.check);
       return true;
     }
     else {
       this.check = false;
       this.machine.User = '';
-      this.machine.Sector = '';
+      // this.machine.Sector = '';
       console.log(this.check);
       return false;
     }

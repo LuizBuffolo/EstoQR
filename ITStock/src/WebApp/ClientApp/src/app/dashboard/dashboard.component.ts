@@ -19,6 +19,7 @@ export class DashboardComponent implements OnInit {
   qrBase: String;
   qrCode: String;
   machines: Machine[];
+  requests: Request[];
 
   user: User = {
     Id: '',
@@ -42,6 +43,19 @@ export class DashboardComponent implements OnInit {
     "Ram"
   );
 
+  tableHeader2: string[] = new Array(
+    "Id",
+    "Modelo",
+    "Status"
+  );
+
+  tableHeader3: string[] = new Array(
+    "Id",
+    "Modelo",
+    "User",
+    "Status"
+  );
+
   constructor(private route: ActivatedRoute, private service: UserService, private serviceRequest: RequestService, private serviceMachine: MachineService, private nav: Router) {
     this.route.params.subscribe(params => this.userId = params['id']);
   }
@@ -56,7 +70,9 @@ export class DashboardComponent implements OnInit {
     // console.log(this.qrCode);
 
     this.refreshMachines();
-    // console.log(this.machines);
+    this.refreshRequests();
+  
+    // console.log("2" + this.requests);
   }
 
   getById(userId) {
@@ -102,5 +118,18 @@ export class DashboardComponent implements OnInit {
       },
       err => { console.log(err) }
     )
+  }
+
+  refreshRequests() {
+    this.serviceRequest.refreshList().subscribe(
+      res => {
+        this.requests = res as Request[];
+        // console.log("1" + this.requests);
+      },
+      err => {
+        if (err.status == 404) {
+          console.log('404');
+        }
+      });
   }
 }
