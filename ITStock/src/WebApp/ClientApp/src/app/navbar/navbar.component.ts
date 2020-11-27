@@ -16,7 +16,7 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.service.currentUsers.subscribe(users => this.users = users);
-    this.check = this.checkUser();
+    //this.check = this.checkUser();
     }
 
   constructor(
@@ -26,7 +26,7 @@ export class NavbarComponent implements OnInit {
     this.route.params.subscribe(params => this.userId = params['id']);
   }
 
-  checkUser(): boolean {
+  /*checkUser(): boolean {
     this.refreshUsers();
     
     for (let i = 0; i < this.users.length; i++) {
@@ -39,7 +39,7 @@ export class NavbarComponent implements OnInit {
     }
 
     return false;
-  }
+  }*/
 
   refreshUsers() {
     this.service.refreshList().subscribe(

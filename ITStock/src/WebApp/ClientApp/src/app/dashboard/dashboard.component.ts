@@ -18,14 +18,17 @@ export class DashboardComponent implements OnInit {
   userId: String;
   qrBase: String;
   qrCode: String;
+  logged: boolean;
   machines: Machine[];
   requests: Request[];
+  users: User[];
 
   user: User = {
     Id: '',
     Username: '',
     Password: '',
-    Hierarchy: ''
+    Hierarchy: '',
+    LoggedIn: null
   }
 
   request: Request = {
@@ -56,7 +59,14 @@ export class DashboardComponent implements OnInit {
     "Status"
   );
 
-  constructor(private route: ActivatedRoute, private route2: Router, private service: UserService, private serviceRequest: RequestService, private serviceMachine: MachineService, private nav: Router) {
+  constructor(
+    private route: ActivatedRoute,
+    private route2: Router,
+    private service: UserService,
+    private serviceRequest: RequestService,
+    private serviceMachine: MachineService,
+    private nav: Router)
+  {
     this.route.params.subscribe(params => this.userId = params['id']);
   }
 
@@ -71,6 +81,8 @@ export class DashboardComponent implements OnInit {
 
     this.refreshMachines();
     this.refreshRequests();
+    this.service.currentUsers.subscribe(users => this.users = users);
+    this.checkLogged();
   
     // console.log("2" + this.requests);
   }
@@ -85,6 +97,19 @@ export class DashboardComponent implements OnInit {
     );
   }
 
+  refreshRequests() {
+    this.serviceRequest.refreshList().subscribe(
+      res => {
+        this.requests = res as Request[];
+        // console.log("1" + this.requests);
+      },
+      err => {
+        if (err.status == 404) {
+          console.log('404');
+        }
+      });
+  }
+
   refreshMachines() {
     this.serviceMachine.refreshList().subscribe(
       res => {
@@ -96,6 +121,16 @@ export class DashboardComponent implements OnInit {
           console.log('404');
         }
       });
+  }
+
+  checkLogged() {
+    for (let i = 0; i < this.users.length; i++) {
+      if (this.users[i].Id == this.userId) {
+        if (this.users[i].LoggedIn == true) {
+          this.logged = true;
+        }
+      }
+    }
   }
 
   resetForm(form?: NgForm) {
@@ -120,19 +155,6 @@ export class DashboardComponent implements OnInit {
     )
   }
 
-  refreshRequests() {
-    this.serviceRequest.refreshList().subscribe(
-      res => {
-        this.requests = res as Request[];
-        // console.log("1" + this.requests);
-      },
-      err => {
-        if (err.status == 404) {
-          console.log('404');
-        }
-      });
-  }
-
   registerUser() {
     this.route2.navigate([this.userId + '/register/']);
   }
@@ -143,5 +165,11 @@ export class DashboardComponent implements OnInit {
 
   onInfo(requestId) {
     this.route2.navigate(['/dashboard/' + this.userId + '/' + requestId]);
+  }
+
+  onDelete(id) {
+    this.serviceMachine.deleteMachine(id).subscribe(res => {
+      this.refreshMachines();
+    });
   }
 }

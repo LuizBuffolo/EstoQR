@@ -18,7 +18,8 @@ export class LoginComponent implements OnInit {
     Id: '',
     Username: '',
     Password: '',
-    Hierarchy: ''
+    Hierarchy: '',
+    LoggedIn: null
   }
 
   constructor(
@@ -35,24 +36,34 @@ export class LoginComponent implements OnInit {
     console.log('mene');
   }
 
-  resetForm(form?: NgForm) {
-    if (form != null)
-      form.resetForm();
-  }
-
-  onSubmit(form?: NgForm) {
-    console.log(this.user.Password);
-
+  onSubmit(userLogged?: User) {
+    let flag;
     for (let i = 0; i < this.users.length; i++) {
       if (this.users[i].Username == this.user.Username) {
         if (this.users[i].Password == this.user.Password) {
           //console.log(this.users[i].Id);
+          flag = true;
+          userLogged = this.users[i];
+          userLogged.LoggedIn = true;
+          this.service.postUser(userLogged).subscribe(
+            res => {
+              this.service.refreshList().subscribe(
+                (data) => {
+                  this.service.changeUsers(data as User[]);
+                });
+            },
+            err => { console.log(err) }
+          )
           this.route.navigate(['/dashboard/' + this.users[i].Id])
         }
       }
     }
+    if (!flag) {
+      alert("Usuário ou senha incorreta");
+      this.user.Username = "";
+      this.user.Password = "";
+    }
   }
-
 
   refreshUsers() {
     this.service.refreshList().subscribe(
@@ -66,5 +77,4 @@ export class LoginComponent implements OnInit {
         }
       });
   }
-
 }

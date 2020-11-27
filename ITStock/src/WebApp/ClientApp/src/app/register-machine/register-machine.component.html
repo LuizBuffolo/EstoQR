@@ -4,17 +4,16 @@
 <article>
   <div id=centro>
     <p style="font-size:300%; text-align: center; margin-bottom: 0px; margin-top: 0px;"><b>Register Machine</b></p>
-    <form action="">
-      <input type="text" name="Model" #Username="ngModel" [(ngModel)]="machine.Model" placeholder="Modelo">
-      <br>
-      <input type="text" name="Manufacturer" #Password="ngModel" [(ngModel)]="machine.Manufacturer" placeholder="Fabricante">
-      <br>
-      <input type="text" name="Processor" #Hierarchy="ngModel" [(ngModel)]="machine.Processor" placeholder="Processador">
-      <br>
-      <input type="text" name="Ram" #Hierarchy="ngModel" [(ngModel)]="machine.Ram" placeholder="RAM">
-      <br>
-      <input type="image" src="../../assets/estoqr-register.png" unselectable="on" alt="Registrar" width="130" height="40" (click)="onSubmit()">
-      <br>
-    </form>
+    <input type="text" name="Model" #Username="ngModel" [(ngModel)]="machine.Model" placeholder="Modelo">
+    <br>
+    <input type="text" name="Manufacturer" #Password="ngModel" [(ngModel)]="machine.Manufacturer" placeholder="Fabricante">
+    <br>
+    <input type="text" name="Processor" #Hierarchy="ngModel" [(ngModel)]="machine.Processor" placeholder="Processador">
+    <br>
+    <input type="text" name="Ram" #Hierarchy="ngModel" [(ngModel)]="machine.Ram" placeholder="RAM">
+    <br>
+    <input type="image" src="../../assets/estoqr-register.png" unselectable="on" alt="Registrar" width="130" height="40" (click)="onSubmit()">
+    <input type="image" src="../../assets/estoqr-register.png" unselectable="on" alt="Voltar" width="130" height="40" (click)="onBack()">
+    <br>
   </div>
 </article>

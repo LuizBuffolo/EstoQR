@@ -11,7 +11,6 @@
   <article>
     <div id=centro>
       <p style="font-size:300%; text-align: center; margin-bottom: 0px; margin-top: 0px;"><b>Register</b></p>
-      <form action="">
         <input type="text" name="Username" #Username="ngModel" [(ngModel)]="user.Username" placeholder="Digite o usuário">
         <br>
         <input type="text" name="Password" #Password="ngModel" [(ngModel)]="user.Password" placeholder="Digite a senha">
@@ -19,8 +18,8 @@
         <input type="text" name="Hierarchy" #Hierarchy="ngModel" [(ngModel)]="user.Hierarchy" placeholder="Digite a hierarquia">
         <br>
         <input type="image" src="../../assets/estoqr-register.png" unselectable="on" alt="Registrar" width="130" height="40" (click)="onSubmit()">
+        <input type="image" src="../../assets/estoqr-register.png" unselectable="on" alt="Voltar" width="130" height="40" (click)="onBack()">
         <br>
-      </form>
     </div>
   </article>
 </body>

@@ -4,7 +4,7 @@
 <hr />
 <p></p>
 <hr />
-<div *ngIf="user.hierarchy !== 'Administrador'">
+<div *ngIf="(user.hierarchy !== 'Administrador')">
 
 
   <div class="row">
@@ -96,7 +96,7 @@
 
 
 
-<div *ngIf="user.hierarchy === 'Administrador'">
+<div *ngIf="(user.hierarchy === 'Administrador')">
   <div class="row">
     <div class="col-md-5">
       <figure class="center-image">
@@ -176,7 +176,7 @@
         </table>
       </div>
       <ng-template #notRequests2>
-        <h4>Nenhuma solicitação fechada.</h4>
+        <h4>Nenhuma solicitação em aberto.</h4>
       </ng-template>
     </div>
   </div>
@@ -199,6 +199,13 @@
               <td *ngIf="m.user === 'Estoque'">{{m.user}}</td>
               <td *ngIf="m.user === 'Estoque'">{{m.processor}}</td>
               <td *ngIf="m.user === 'Estoque'">{{m.ram}}</td>
+              <td *ngIf="m.user === 'Estoque'">
+                <div class="row">
+                  <div class="col-md-6">
+                    <i class="far fa-trash-alt fa-lg text-danger" (click)="onDelete(m.id)"></i>
+                  </div>
+                </div>
+              </td>
             </tr>
           </tbody>
         </table>

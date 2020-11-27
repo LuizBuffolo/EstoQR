@@ -19,7 +19,8 @@ export class RegisterComponent implements OnInit {
     Id: '',
     Username: '',
     Password: '',
-    Hierarchy: ''
+    Hierarchy: '',
+    LoggedIn: null
   }
 
   constructor(
@@ -30,33 +31,29 @@ export class RegisterComponent implements OnInit {
     this.route.params.subscribe(params => this.userId = params['id']);
   }
 
-  registerUser() {
-    console.log('mene');
-  }
-
   ngOnInit() {
-    this.resetForm();
     this.service.currentUsers.subscribe(users => this.users = users);
     this.checkAdm();
   }
 
-  resetForm(form?: NgForm) {
-    if (form != null)
-      form.resetForm();
-  }
-
-  onSubmit(form?: NgForm) {
-    var f = form
-    this.service.postUser(this.user).subscribe(
-      res => {
-        this.resetForm(f);
-        this.service.refreshList().subscribe(
-          (data) => {
-            this.service.changeUsers(data as User[]);
-          });
-      },
-      err => { console.log(err) }
-    )
+  onSubmit() {
+    if (this.user.Username != "" && this.user.Password != "" && this.user.Hierarchy != "") {
+      this.service.postUser(this.user).subscribe(
+        res => {
+          this.user.Hierarchy = "";
+          this.user.Username = "";
+          this.user.Password = "";
+          this.service.refreshList().subscribe(
+            (data) => {
+              this.service.changeUsers(data as User[]);
+            });
+        },
+        err => { console.log(err) }
+      )
+    }
+    else {
+      alert("Nenhum campo pode ser nulo");
+    }
   }
   
   checkAdm() {
@@ -67,5 +64,9 @@ export class RegisterComponent implements OnInit {
         }
       }
     }
+  }
+
+  onBack() {
+    this.route2.navigate(['/dashboard/' + this.userId]);
   }
 }

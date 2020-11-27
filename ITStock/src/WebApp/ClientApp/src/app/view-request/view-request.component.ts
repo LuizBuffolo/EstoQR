@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Request } from '../request-shared/request.model';
 import { RequestService } from '../request-shared/request.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Machine } from '../machines/machine-shared/machine.model';
 import { MachineService } from '../machines/machine-shared/machine.service';
 
@@ -29,7 +29,7 @@ export class ViewRequestComponent implements OnInit {
     "Ram"
   );
 
-  constructor(private service: RequestService, private route: ActivatedRoute, private serviceMachine: MachineService) {
+  constructor(private service: RequestService, private route: ActivatedRoute, private serviceMachine: MachineService, private route2: Router) {
     this.route.params.subscribe(params => this.requestId = params['idrequest']);
   }
 
@@ -65,7 +65,7 @@ export class ViewRequestComponent implements OnInit {
 
   onAccept(id, user?: string, requestAtual?: Request, machineUpdate?: Machine) {
     for (let i = 0; i < this.machines.length; i++) {
-      if (this.machines[i].id == id) {
+      if (this.machines[i].Id == id) {
         this.machines[i].User = user;
         this.machines[i].Available = false;
         console.log(user);
@@ -93,6 +93,8 @@ export class ViewRequestComponent implements OnInit {
       },
       err => { console.log(err) }
     )
+
+    this.route2.navigate([]);
   }
 
   onReffuse(requestAtual, requestUpdate?: Request) {
