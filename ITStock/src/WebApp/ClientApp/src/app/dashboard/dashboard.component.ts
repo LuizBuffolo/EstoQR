@@ -56,7 +56,7 @@ export class DashboardComponent implements OnInit {
     "Status"
   );
 
-  constructor(private route: ActivatedRoute, private service: UserService, private serviceRequest: RequestService, private serviceMachine: MachineService, private nav: Router) {
+  constructor(private route: ActivatedRoute, private route2: Router, private service: UserService, private serviceRequest: RequestService, private serviceMachine: MachineService, private nav: Router) {
     this.route.params.subscribe(params => this.userId = params['id']);
   }
 
@@ -131,5 +131,17 @@ export class DashboardComponent implements OnInit {
           console.log('404');
         }
       });
+  }
+
+  registerUser() {
+    this.route2.navigate([this.userId + '/register/']);
+  }
+
+  registerMachine() {
+    this.route2.navigate([this.userId + '/register-machine/']);
+  }
+
+  onInfo(requestId) {
+    this.route2.navigate(['/dashboard/' + this.userId + '/' + requestId]);
   }
 }

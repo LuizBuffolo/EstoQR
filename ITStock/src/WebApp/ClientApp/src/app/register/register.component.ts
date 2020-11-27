@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { User } from '../user-shared/user.model';
 import { UserService } from '../user-shared/user.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -10,6 +11,7 @@ import { UserService } from '../user-shared/user.service';
 })
 
 export class RegisterComponent implements OnInit {
+  userId: String;
   users: User[];
   check: boolean = false;
 
@@ -21,8 +23,12 @@ export class RegisterComponent implements OnInit {
   }
 
   constructor(
-    private service: UserService
-  ) { }
+    private service: UserService,
+    private route: ActivatedRoute,
+    private route2: Router
+  ) {
+    this.route.params.subscribe(params => this.userId = params['id']);
+  }
 
   registerUser() {
     console.log('mene');
@@ -31,6 +37,7 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
     this.resetForm();
     this.service.currentUsers.subscribe(users => this.users = users);
+    this.checkAdm();
   }
 
   resetForm(form?: NgForm) {
@@ -52,20 +59,13 @@ export class RegisterComponent implements OnInit {
     )
   }
   
-  /*FieldsChange(values: any): boolean {
-    if (values.currentTarget.checked == true) {
-      this.check = true;
-      this.monitor.User = 'Estoque TI';
-      this.monitor.Sector = 'TI';
-      console.log(this.check);
-      return true;
+  checkAdm() {
+    for (let i = 0; i < this.users.length; i++) {
+      if (this.users[i].Id == this.userId) {
+        if (this.users[i].Hierarchy != 'Administrador') {
+          this.route2.navigate(['/home']);
+        }
+      }
     }
-    else {
-      this.check = false;
-      this.monitor.User = '';
-      this.monitor.Sector = '';
-      console.log(this.check);
-      return false;
-    }
-  }*/
+  }
 }

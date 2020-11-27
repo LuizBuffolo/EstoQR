@@ -22,6 +22,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { RegisterMachineComponent } from './register-machine/register-machine.component';
+import { ViewRequestComponent } from './view-request/view-request.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { RegisterMachineComponent } from './register-machine/register-machine.co
     LoginComponent,
     RegisterComponent,
     DashboardComponent,
-    RegisterMachineComponent
+    RegisterMachineComponent,
+    ViewRequestComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

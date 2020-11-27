@@ -9,6 +9,7 @@ import { LoginComponent } from "./login/login.component";
 import { RegisterComponent } from "./register/register.component";
 import { DashboardComponent } from "./dashboard/dashboard.component";
 import { RegisterMachineComponent } from "./register-machine/register-machine.component";
+import { ViewRequestComponent } from "./view-request/view-request.component";
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -19,8 +20,9 @@ const routes: Routes = [
   { path: "monitor/:id", component: MonitorEditComponent },
   { path: "dashboard/:id", component: DashboardComponent },
   { path: "login", component: LoginComponent },
-  { path: "register", component: RegisterComponent },
-  { path: "register-machine", component: RegisterMachineComponent }
+  { path: ":id/register", component: RegisterComponent },
+  { path: ":id/register-machine", component: RegisterMachineComponent },
+  { path: "dashboard/:id/:idrequest", component: ViewRequestComponent }
 ];
 
 @NgModule({
