@@ -1,0 +1,18 @@
+<br />
+<hr />
+<br />
+<h1> Pesquisa de Máquina </h1>
+<div class="form-group">
+  <div class="form-group">
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <div class="input-group-text bg-white">
+          <i class="far fa-id-card"></i>
+        </div>
+      </div>
+      <input name="machineId" #MachineId="ngModel" [(ngModel)]="machineId" class="form-control" placeholder="Digite o id da Máquina" />
+    </div>
+  </div>
+</div>
+<input type="image" src="../../assets/estoqr-search.png" unselectable="on" alt="Pesquisar" width="130" height="40" (click)="onSearch()">
+<input type="image" src="../../assets/estoqr-voltar.png" unselectable="on" alt="Voltar" width="130" height="40" (click)="onBack()">

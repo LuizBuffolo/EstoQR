@@ -17,6 +17,7 @@ export class UserService {
   }
 
   private readonly rootURL: string = "https://localhost:44316/api/user";
+  private readonly rootURL2: string = "https://localhost:44316/api/machine";
   list: User[];
   constructor(private http: HttpClient) { }
   
@@ -35,5 +36,9 @@ export class UserService {
 
   getById(id) {
     return this.http.get(this.rootURL + '/' + id);
+  }
+
+  getMachines() {
+    return this.http.get(this.rootURL2);
   }
 }

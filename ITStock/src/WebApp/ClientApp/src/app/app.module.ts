@@ -20,6 +20,11 @@ import { MachineEditComponent } from './machines/machine/machine-edit.component'
 import { MonitorEditComponent } from './monitors/monitor/monitor-edit.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { RegisterMachineComponent } from './register-machine/register-machine.component';
+import { ViewRequestComponent } from './view-request/view-request.component';
+import { ViewQrComponent } from './view-qr/view-qr.component';
+import { SearchQrComponent } from './search-qr/search-qr.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +43,12 @@ import { RegisterComponent } from './register/register.component';
     MonitorEditComponent,
     NavbarComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    DashboardComponent,
+    RegisterMachineComponent,
+    ViewRequestComponent,
+    ViewQrComponent,
+    SearchQrComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

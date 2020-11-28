@@ -1,0 +1,16 @@
+<article>
+  <div id=centro>
+    <h4>Id: {{machine.id}}</h4>
+    <h5>User: {{machine.user}}</h5>
+    <h5>Fabricante: {{machine.manufacturer}}</h5>
+    <h5>Modelo: {{machine.model}}</h5>
+    <h5>Processador: {{machine.processor}}</h5>
+    <h5>Ram: {{machine.ram}}</h5>
+
+    <figure class="center-image">
+      <img alt="pfp" width="300" height="300" src="{{qrCode}}" />
+    </figure>
+
+    <input type="image" src="../../assets/estoqr-voltar.png" unselectable="on" alt="Voltar" width="130" height="40" (click)="onBack()">
+  </div>
+</article>

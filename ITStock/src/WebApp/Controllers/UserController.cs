@@ -42,6 +42,21 @@ namespace WebApp.Controllers
                 users.Sort((x, y) => x.Username.CompareTo(y.Username));
                 return Ok(Newtonsoft.Json.JsonConvert.SerializeObject(users));
             }
+            else
+            {
+                UserModel user = new UserModel();
+                user.Username = "adm";
+                user.Password = "adm";
+                user.Hierarchy = "Administrador";
+                var user1 = userService.Save(user);
+                users = userService.GetAll();
+
+                if(users != null)
+                {
+                    users.Sort((x, y) => x.Username.CompareTo(y.Username));
+                    return Ok(Newtonsoft.Json.JsonConvert.SerializeObject(users));
+                }
+            }
 
             return NotFound();
         }
