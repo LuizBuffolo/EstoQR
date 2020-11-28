@@ -27,8 +27,7 @@ export class DashboardComponent implements OnInit {
     Id: '',
     Username: '',
     Password: '',
-    Hierarchy: '',
-    LoggedIn: null
+    Hierarchy: ''
   }
 
   request: Request = {
@@ -44,6 +43,15 @@ export class DashboardComponent implements OnInit {
     "Usuário",
     "Processor",
     "Ram"
+  );
+
+  tableHeader4: string[] = new Array(
+    "Modelo",
+    "Fabricante",
+    "Usuário",
+    "Processor",
+    "Ram",
+    "Devolver"
   );
 
   tableHeader2: string[] = new Array(
@@ -82,7 +90,7 @@ export class DashboardComponent implements OnInit {
     this.refreshMachines();
     this.refreshRequests();
     this.service.currentUsers.subscribe(users => this.users = users);
-    this.checkLogged();
+    // this.checkLogged();
   
     // console.log("2" + this.requests);
   }
@@ -122,7 +130,7 @@ export class DashboardComponent implements OnInit {
         }
       });
   }
-
+  /*
   checkLogged() {
     for (let i = 0; i < this.users.length; i++) {
       if (this.users[i].Id == this.userId) {
@@ -131,7 +139,7 @@ export class DashboardComponent implements OnInit {
         }
       }
     }
-  }
+  }*/
 
   resetForm(form?: NgForm) {
     if (form != null)
@@ -164,12 +172,36 @@ export class DashboardComponent implements OnInit {
   }
 
   onInfo(requestId) {
-    this.route2.navigate(['/dashboard/' + this.userId + '/' + requestId]);
+    this.route2.navigate(['/dashboard/' + this.userId + '/request/' + requestId]);
+  }
+
+  searchQr() {
+    this.route2.navigate(['/dashboard/' + this.userId + '/search/']);
   }
 
   onDelete(id) {
     this.serviceMachine.deleteMachine(id).subscribe(res => {
       this.refreshMachines();
     });
+  }
+
+  onReturn(machineReturn?: Machine) {
+    
+    machineReturn.User = 'Estoque';
+    console.log(machineReturn);
+    this.serviceMachine.postMachine(machineReturn).subscribe(
+      res => {
+        this.serviceMachine.refreshList().subscribe(
+          (data) => {
+            this.serviceMachine.changeMachines(data as Machine[]);
+          });
+        this.refreshMachines();
+      },
+      err => { console.log(err) }
+    )
+  }
+
+  onQr(id) {
+    this.route2.navigate(['/dashboard/' + this.userId + '/qr/' + id]);
   }
 }

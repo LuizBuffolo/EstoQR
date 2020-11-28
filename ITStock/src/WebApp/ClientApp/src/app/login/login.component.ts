@@ -19,7 +19,6 @@ export class LoginComponent implements OnInit {
     Username: '',
     Password: '',
     Hierarchy: '',
-    LoggedIn: null
   }
 
   constructor(
@@ -44,7 +43,7 @@ export class LoginComponent implements OnInit {
           //console.log(this.users[i].Id);
           flag = true;
           userLogged = this.users[i];
-          userLogged.LoggedIn = true;
+          // userLogged.LoggedIn = true;
           this.service.postUser(userLogged).subscribe(
             res => {
               this.service.refreshList().subscribe(

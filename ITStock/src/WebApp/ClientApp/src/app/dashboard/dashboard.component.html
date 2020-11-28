@@ -14,6 +14,7 @@
       </figure>
     </div>
     <div class="col-md-7">
+      <br />
       <h3>Olá, {{ user.username }}!</h3>
     </div>
   </div>
@@ -23,10 +24,10 @@
     <div class="col-md-6">
       <div>
         <h3>Suas máquinas: </h3>
-        <table class="table table-hover" *ngIf="machines && tableHeader; else notMachines">
+        <table class="table table-hover" *ngIf="machines && tableHeader4; else notMachines">
           <thead>
             <tr>
-              <th *ngFor="let head of tableHeader" scope="col">{{head}}</th>
+              <th *ngFor="let head of tableHeader4" scope="col">{{head}}</th>
             </tr>
           </thead>
           <tbody>
@@ -36,6 +37,13 @@
               <td *ngIf="m.user === user.username">{{m.user}}</td>
               <td *ngIf="m.user === user.username">{{m.processor}}</td>
               <td *ngIf="m.user === user.username">{{m.ram}}</td>
+              <td *ngIf="m.user === user.username">
+                <div class="row">
+                  <div class="col-md-6">
+                    <i class="fas fa-share" (click)="onReturn(m)"></i>
+                  </div>
+                </div>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -104,19 +112,25 @@
       </figure>
     </div>
     <div class="col-md-7">
+      <br />
       <h3>Olá, {{ user.username }}!</h3>
     </div>
   </div>
   <hr />
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-4">
       <div class="form-group">
         <button class="btn btn-success btn-lg btn-block" (click)="registerUser()"> Registrar Usuário</button>
       </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-4">
       <div class="form-group">
         <button class="btn btn-warning btn-lg btn-block" (click)="registerMachine()">  Registrar Máquina </button>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <button class="btn btn-info btn-lg btn-block" (click)="searchQr()">  Procurar Máquina por QR </button>
       </div>
     </div>
   </div>
@@ -181,67 +195,80 @@
     </div>
   </div>
   <hr />
-  <div class="row">
-    <div class="col-md-6">
-      <h3>Máquinas em Estoque:</h3>
-      <br />
-      <div>
-        <table class="table table-hover" *ngIf="machines && tableHeader; else notMachines">
-          <thead>
-            <tr>
-              <th *ngFor="let head of tableHeader" scope="col">{{head}}</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let m of machines">
-              <td *ngIf="m.user === 'Estoque'">{{m.model}}</td>
-              <td *ngIf="m.user === 'Estoque'">{{m.manufacturer}}</td>
-              <td *ngIf="m.user === 'Estoque'">{{m.user}}</td>
-              <td *ngIf="m.user === 'Estoque'">{{m.processor}}</td>
-              <td *ngIf="m.user === 'Estoque'">{{m.ram}}</td>
-              <td *ngIf="m.user === 'Estoque'">
-                <div class="row">
-                  <div class="col-md-6">
-                    <i class="far fa-trash-alt fa-lg text-danger" (click)="onDelete(m.id)"></i>
-                  </div>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <ng-template #notMachines>
-        <h4>Nenhuma máquina cadastrada.</h4>
-      </ng-template>
-    </div>
-
-    <div class="col-md-6">
-      <h3>Máquinas em Uso:</h3>
-      <br />
-      <div>
-        <table class="table table-hover" *ngIf="machines && tableHeader; else notMachines">
-          <thead>
-            <tr>
-              <th *ngFor="let head of tableHeader" scope="col">{{head}}</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let m of machines">
-              <td *ngIf="m.user !== 'Estoque'">{{m.model}}</td>
-              <td *ngIf="m.user !== 'Estoque'">{{m.manufacturer}}</td>
-              <td *ngIf="m.user !== 'Estoque'">{{m.user}}</td>
-              <td *ngIf="m.user !== 'Estoque'">{{m.processor}}</td>
-              <td *ngIf="m.user !== 'Estoque'">{{m.ram}}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <ng-template #notMachines>
-        <h4>Nenhuma máquina cadastrada.</h4>
-      </ng-template>
-    </div>
+  
+   
+  <h3>Máquinas em Uso:</h3>
+  <br />
+  <div>
+    <table class="table table-hover" *ngIf="machines && tableHeader; else notMachines">
+      <thead>
+        <tr>
+          <th *ngFor="let head of tableHeader" scope="col">{{head}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let m of machines">
+          <td *ngIf="m.user !== 'Estoque'">{{m.model}}</td>
+          <td *ngIf="m.user !== 'Estoque'">{{m.manufacturer}}</td>
+          <td *ngIf="m.user !== 'Estoque'">{{m.user}}</td>
+          <td *ngIf="m.user !== 'Estoque'">{{m.processor}}</td>
+          <td *ngIf="m.user !== 'Estoque'">{{m.ram}}</td>
+          <td *ngIf="m.user !== 'Estoque'">
+            <div class="row">
+              <div class="col-md-6">
+                <i class="fas fa-qrcode" (click)="onQr(m.id)"></i>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
+  <ng-template #notMachines>
+    <h4>Nenhuma máquina cadastrada.</h4>
+  </ng-template>
+
+  <hr />
+    
+  <h3>Máquinas em Estoque:</h3>
+  <br />
+  <div>
+    <table class="table table-hover" *ngIf="machines && tableHeader; else notMachines">
+      <thead>
+        <tr>
+          <th *ngFor="let head of tableHeader" scope="col">{{head}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let m of machines">
+          <td *ngIf="m.user === 'Estoque'">{{m.model}}</td>
+          <td *ngIf="m.user === 'Estoque'">{{m.manufacturer}}</td>
+          <td *ngIf="m.user === 'Estoque'">{{m.user}}</td>
+          <td *ngIf="m.user === 'Estoque'">{{m.processor}}</td>
+          <td *ngIf="m.user === 'Estoque'">{{m.ram}}</td>
+          <td *ngIf="m.user === 'Estoque'">
+            <div class="row">
+              <div class="col-md-6">
+                <i class="far fa-trash-alt fa-lg text-danger" (click)="onDelete(m.id)"></i>
+              </div>
+            </div>
+          </td>
+          <td *ngIf="m.user === 'Estoque'">
+            <div class="row">
+              <div class="col-md-6">
+                <i class="fas fa-qrcode" (click)="onQr(m.id)"></i>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <ng-template #notMachines>
+    <h4>Nenhuma máquina cadastrada.</h4>
+  </ng-template>
+   
   <hr />
   <br />
-
+  <p></p>
 </div>

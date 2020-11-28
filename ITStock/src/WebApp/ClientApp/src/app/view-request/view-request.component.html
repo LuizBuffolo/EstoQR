@@ -23,7 +23,7 @@
       <td *ngIf="(m.model === request.model) && (m.user === 'Estoque')">
         <div class="row">
           <div class="col-md-6">
-            <i class="fas fa-check-circle" (click)="onAccept(m.id, request.user, request)"></i>
+            <i class="fas fa-check-circle" (click)="onAccept(m.id, m.model, m.manufacturer, m.processor, m.ram, request.user, request)"></i>
           </div>
         </div>
       </td>
@@ -40,3 +40,5 @@
 <ng-template #notMachines>
   <h4>Nenhuma máquina disponível.</h4>
 </ng-template>
+<br />
+<input type="image" src="../../assets/estoqr-voltar.png" unselectable="on" alt="Voltar" width="130" height="40" (click)="onBack()">

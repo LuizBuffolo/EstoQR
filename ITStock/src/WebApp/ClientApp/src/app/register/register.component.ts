@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { User } from '../user-shared/user.model';
@@ -19,8 +20,7 @@ export class RegisterComponent implements OnInit {
     Id: '',
     Username: '',
     Password: '',
-    Hierarchy: '',
-    LoggedIn: null
+    Hierarchy: ''
   }
 
   constructor(
@@ -55,7 +55,7 @@ export class RegisterComponent implements OnInit {
       alert("Nenhum campo pode ser nulo");
     }
   }
-  
+
   checkAdm() {
     for (let i = 0; i < this.users.length; i++) {
       if (this.users[i].Id == this.userId) {

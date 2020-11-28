@@ -12,13 +12,25 @@ import { MachineService } from '../machines/machine-shared/machine.service';
 })
 export class ViewRequestComponent implements OnInit {
   requestId: String;
+  userId: String;
   machines: Machine[];
   id: any;
+
   request: Request = {
     Id: '',
     User: '',
     Model: '',
     Status: ''
+  }
+
+  machine: Machine = {
+    Id: '',
+    Model: '',
+    Manufacturer: '',
+    Processor: '',
+    Ram: '',
+    User: '',
+    Available: true
   }
 
   tableHeader: string[] = new Array(
@@ -31,6 +43,7 @@ export class ViewRequestComponent implements OnInit {
 
   constructor(private service: RequestService, private route: ActivatedRoute, private serviceMachine: MachineService, private route2: Router) {
     this.route.params.subscribe(params => this.requestId = params['idrequest']);
+    this.route.params.subscribe(params => this.userId = params['id']);
   }
 
   ngOnInit() {
@@ -50,6 +63,15 @@ export class ViewRequestComponent implements OnInit {
     );
   }
 
+  getByIdMachine(machineId) {
+    this.serviceMachine.getById(machineId).subscribe(
+      res => {
+        this.machine = res as Machine;
+      },
+      err => { console.log(err) }
+    );
+  }
+
   refreshMachines() {
     this.serviceMachine.refreshList().subscribe(
       res => {
@@ -63,17 +85,17 @@ export class ViewRequestComponent implements OnInit {
       });
   }
 
-  onAccept(id, user?: string, requestAtual?: Request, machineUpdate?: Machine) {
-    for (let i = 0; i < this.machines.length; i++) {
-      if (this.machines[i].Id == id) {
-        this.machines[i].User = user;
-        this.machines[i].Available = false;
-        console.log(user);
-        machineUpdate = this.machines[i];
-      }
-    }
+  onAccept(id, model, manufacturer, processor, ram, user?: string, requestAtual?: Request, machineUpdate?: Machine) {
+
+    this.getByIdMachine(id);
+    this.machine.User = user;
+    this.machine.Available = false;
+    this.machine.Manufacturer = manufacturer;
+    this.machine.Model = model;
+    this.machine.Processor = processor;
+    this.machine.Ram = ram;
     
-    this.serviceMachine.postMachine(machineUpdate).subscribe(
+    this.serviceMachine.postMachine(this.machine).subscribe(
       res => {
         this.serviceMachine.refreshList().subscribe(
           (data) => {
@@ -94,7 +116,8 @@ export class ViewRequestComponent implements OnInit {
       err => { console.log(err) }
     )
 
-    this.route2.navigate([]);
+    // alert('Solicitação Aceita');
+    this.onBack();
   }
 
   onReffuse(requestAtual, requestUpdate?: Request) {
@@ -110,5 +133,12 @@ export class ViewRequestComponent implements OnInit {
       },
       err => { console.log(err) }
     )
+
+    // alert('Solicitação Recusada');
+    this.onBack();
+  }
+
+  onBack() {
+    this.route2.navigate(['/dashboard/' + this.userId]);
   }
 }

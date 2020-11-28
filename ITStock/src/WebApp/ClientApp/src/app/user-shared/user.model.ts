@@ -3,5 +3,4 @@ export class User {
   Username: String;
   Password: String;
   Hierarchy: String;
-  LoggedIn: boolean;
 }

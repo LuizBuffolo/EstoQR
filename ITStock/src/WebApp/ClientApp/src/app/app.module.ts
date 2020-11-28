@@ -23,6 +23,8 @@ import { RegisterComponent } from './register/register.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { RegisterMachineComponent } from './register-machine/register-machine.component';
 import { ViewRequestComponent } from './view-request/view-request.component';
+import { ViewQrComponent } from './view-qr/view-qr.component';
+import { SearchQrComponent } from './search-qr/search-qr.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,9 @@ import { ViewRequestComponent } from './view-request/view-request.component';
     RegisterComponent,
     DashboardComponent,
     RegisterMachineComponent,
-    ViewRequestComponent
+    ViewRequestComponent,
+    ViewQrComponent,
+    SearchQrComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
