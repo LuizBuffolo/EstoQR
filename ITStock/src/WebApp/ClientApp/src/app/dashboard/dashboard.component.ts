@@ -149,10 +149,12 @@ export class DashboardComponent implements OnInit {
   onSubmit(form?: NgForm, username?: string) {
     this.request.User = username;
     this.request.Status = "Em Análise";
+    alert("Pedido Realizado");
 
     var f = form
     this.serviceRequest.postRequest(this.request).subscribe(
       res => {
+        this.refreshRequests();
         this.resetForm(f);
         this.service.refreshList().subscribe(
           (data) => {

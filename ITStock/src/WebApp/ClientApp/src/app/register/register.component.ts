@@ -40,6 +40,7 @@ export class RegisterComponent implements OnInit {
     if (this.user.Username != "" && this.user.Password != "" && this.user.Hierarchy != "") {
       this.service.postUser(this.user).subscribe(
         res => {
+          alert("Usuário Cadastrado");
           this.user.Hierarchy = "";
           this.user.Username = "";
           this.user.Password = "";
